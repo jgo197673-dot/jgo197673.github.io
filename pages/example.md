@@ -1,0 +1,44 @@
+---
+title: '첫 번째 게시글'
+date: 2025-02-03
+tags: ['JavaScript', 'Web']
+category: 'Development'
+description: 'GitHub Pages 정적 블로그의 예시 게시글입니다.'
+---
+
+# 첫 번째 게시글
+
+이것은 GitHub Pages 정적 블로그의 예시 게시글입니다.
+
+## 소제목
+
+마크다운 문법을 사용하여 게시글을 작성할 수 있습니다.
+
+### 코드 예시
+
+```javascript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+greet('World');
+```
+
+### 리스트
+
+- 항목 1
+- 항목 2
+- 항목 3
+
+### 링크
+
+[GitHub](https://github.com)에 방문해보세요.
+
+### 강조
+
+**굵은 글씨**와 *기울임*을 사용할 수 있습니다.
+
+> 인용문도 사용할 수 있습니다.
+
+이제 여러분만의 게시글을 작성해보세요!
+
