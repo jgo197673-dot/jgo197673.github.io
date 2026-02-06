@@ -1,32 +1,50 @@
-/* CSS 변수 기반 다크/라이트 모드 */
+/* CSS 변수 기반 다크/라이트 모드 - 사기 주제 특화 */
 :root {
-  /* 라이트 모드 */
-  --bg-color: #ffffff;
+  /* 라이트 모드 - 경고 & 신뢰 테마 */
+  --bg-color: #fafafa;
   --text-color: #1a1a1a;
   --text-secondary: #666666;
   --border-color: #e0e0e0;
-  --link-color: #0066cc;
-  --link-hover: #004499;
+  --link-color: #ff6b35; /* 경고 주황색 */
+  --link-hover: #e55a2b;
   --code-bg: #f5f5f5;
   --code-text: #333333;
-  --tag-bg: #f0f0f0;
-  --tag-text: #555555;
+  --tag-bg: #fff4f0;
+  --tag-text: #cc4a1f;
   --shadow: rgba(0, 0, 0, 0.1);
+  --warning-bg: #fff3cd;
+  --warning-border: #ffc107;
+  --warning-text: #856404;
+  --danger-bg: #f8d7da;
+  --danger-border: #dc3545;
+  --danger-text: #721c24;
+  --info-bg: #d1ecf1;
+  --info-border: #0c5460;
+  --info-text: #0c5460;
 }
 
 [data-theme='dark'] {
-  /* 다크 모드 */
+  /* 다크 모드 - 경고 & 신뢰 테마 */
   --bg-color: #1a1a1a;
   --text-color: #e0e0e0;
   --text-secondary: #999999;
   --border-color: #333333;
-  --link-color: #4da6ff;
-  --link-hover: #66b3ff;
+  --link-color: #ff8c5a; /* 밝은 주황색 */
+  --link-hover: #ffb38a;
   --code-bg: #2a2a2a;
   --code-text: #e0e0e0;
-  --tag-bg: #333333;
-  --tag-text: #cccccc;
+  --tag-bg: #3a2a1f;
+  --tag-text: #ff8c5a;
   --shadow: rgba(0, 0, 0, 0.3);
+  --warning-bg: #3d2f1a;
+  --warning-border: #ffc107;
+  --warning-text: #ffd54f;
+  --danger-bg: #3d1f1f;
+  --danger-border: #dc3545;
+  --danger-text: #ff6b6b;
+  --info-bg: #1a2a2f;
+  --info-border: #0c5460;
+  --info-text: #4dd0e1;
 }
 
 /* 기본 스타일 */
@@ -40,7 +58,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  line-height: 1.6;
+  line-height: 1.7; /* 가독성 향상 */
   color: var(--text-color);
   background-color: var(--bg-color);
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -53,22 +71,30 @@ body {
   padding: 2rem 1rem;
 }
 
-/* 헤더 */
+/* 헤더 - 경고 느낌 강조 */
 header {
   margin-bottom: 3rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 3px solid var(--link-color); /* 두꺼운 경고색 경계선 */
 }
 
 header h1 {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  position: relative;
+}
+
+header h1::after {
+  content: '⚠️';
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
 }
 
 header h1 a {
   color: var(--text-color);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 header h1 a:hover {
@@ -95,26 +121,27 @@ nav {
 #search-input {
   width: 100%;
   padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
   background-color: var(--bg-color);
   color: var(--text-color);
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 #search-input:focus {
   outline: none;
   border-color: var(--link-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
 }
 
 /* 테마 토글 버튼 */
 #theme-toggle {
   background: none;
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--border-color);
   color: var(--text-color);
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -134,13 +161,14 @@ nav {
 }
 
 .tag-btn {
-  padding: 0.25rem 0.75rem;
+  padding: 0.375rem 0.875rem;
   background-color: var(--tag-bg);
   color: var(--tag-text);
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--tag-text);
   border-radius: 20px;
   cursor: pointer;
   font-size: 0.875rem;
+  font-weight: 500;
   transition: all 0.3s ease;
 }
 
@@ -148,6 +176,8 @@ nav {
   background-color: var(--link-color);
   color: white;
   border-color: var(--link-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 107, 53, 0.2);
 }
 
 .tag-btn.active {
@@ -163,23 +193,33 @@ nav {
 
 .post-item {
   margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  transition: all 0.3s ease;
+}
+
+.post-item:hover {
+  border-color: var(--link-color);
+  box-shadow: 0 4px 12px var(--shadow);
+  transform: translateY(-2px);
 }
 
 .post-item:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .post-item h2 {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .post-item h2 a {
   color: var(--text-color);
   text-decoration: none;
   transition: color 0.3s ease;
+  font-weight: 600;
 }
 
 .post-item h2 a:hover {
@@ -199,15 +239,17 @@ nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .post-tag {
-  padding: 0.125rem 0.5rem;
+  padding: 0.25rem 0.625rem;
   background-color: var(--tag-bg);
   color: var(--tag-text);
+  border: 1px solid var(--tag-text);
   border-radius: 12px;
   font-size: 0.75rem;
+  font-weight: 500;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -215,11 +257,12 @@ nav {
 .post-tag:hover {
   background-color: var(--link-color);
   color: white;
+  border-color: var(--link-color);
 }
 
 .post-excerpt {
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.8;
   margin-top: 0.75rem;
 }
 
@@ -227,13 +270,14 @@ nav {
 .post-header {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 3px solid var(--link-color);
 }
 
 .post-header h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   line-height: 1.2;
+  font-weight: 700;
 }
 
 .post-content {
@@ -249,14 +293,19 @@ nav {
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: 600;
+  color: var(--text-color);
 }
 
 .post-content h1 {
   font-size: 2rem;
+  border-bottom: 2px solid var(--link-color);
+  padding-bottom: 0.5rem;
 }
 
 .post-content h2 {
   font-size: 1.75rem;
+  border-left: 4px solid var(--link-color);
+  padding-left: 1rem;
 }
 
 .post-content h3 {
@@ -264,24 +313,27 @@ nav {
 }
 
 .post-content p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
 }
 
 .post-content ul,
 .post-content ol {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   padding-left: 2rem;
 }
 
 .post-content li {
   margin-bottom: 0.5rem;
+  line-height: 1.7;
 }
 
 .post-content a {
   color: var(--link-color);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
   transition: border-color 0.3s ease;
+  font-weight: 500;
 }
 
 .post-content a:hover {
@@ -290,10 +342,41 @@ nav {
 
 .post-content blockquote {
   border-left: 4px solid var(--link-color);
-  padding-left: 1rem;
+  padding: 1rem 1.5rem;
   margin: 1.5rem 0;
-  color: var(--text-secondary);
+  background-color: var(--tag-bg);
+  border-radius: 4px;
+  color: var(--text-color);
   font-style: italic;
+}
+
+/* 경고/주의 박스 스타일 */
+.post-content .warning-box,
+.post-content .danger-box,
+.post-content .info-box {
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+  border-left: 4px solid;
+  font-weight: 500;
+}
+
+.post-content .warning-box {
+  background-color: var(--warning-bg);
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+}
+
+.post-content .danger-box {
+  background-color: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: var(--danger-text);
+}
+
+.post-content .info-box {
+  background-color: var(--info-bg);
+  border-color: var(--info-border);
+  color: var(--info-text);
 }
 
 .post-content code {
@@ -303,38 +386,45 @@ nav {
   border-radius: 3px;
   font-size: 0.9em;
   font-family: 'Courier New', Courier, monospace;
+  border: 1px solid var(--border-color);
 }
 
 .post-content pre {
   background-color: var(--code-bg);
-  padding: 1rem;
-  border-radius: 4px;
+  padding: 1.25rem;
+  border-radius: 6px;
   overflow-x: auto;
   margin: 1.5rem 0;
+  border: 2px solid var(--border-color);
 }
 
 .post-content pre code {
   background: none;
   padding: 0;
   font-size: 0.875rem;
+  border: none;
 }
 
 .post-content img {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 6px;
   margin: 1.5rem 0;
+  border: 2px solid var(--border-color);
 }
 
 .post-content table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .post-content table th,
 .post-content table td {
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid var(--border-color);
   text-align: left;
 }
@@ -342,6 +432,7 @@ nav {
 .post-content table th {
   background-color: var(--tag-bg);
   font-weight: 600;
+  color: var(--tag-text);
 }
 
 /* 검색 하이라이팅 */
@@ -350,6 +441,7 @@ mark {
   color: var(--text-color);
   padding: 0.125rem 0.25rem;
   border-radius: 2px;
+  font-weight: 600;
 }
 
 [data-theme='dark'] mark {
@@ -361,7 +453,7 @@ mark {
 .comments-container {
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 1px solid var(--border-color);
+  border-top: 3px solid var(--link-color);
 }
 
 /* 빈 상태 */
@@ -381,11 +473,16 @@ mark {
   margin-bottom: 2rem;
   color: var(--link-color);
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--link-color);
+  border-radius: 6px;
 }
 
 .back-link:hover {
-  color: var(--link-hover);
+  background-color: var(--link-color);
+  color: white;
 }
 
 /* 반응형 디자인 */
@@ -396,6 +493,10 @@ mark {
 
   header h1 {
     font-size: 1.5rem;
+  }
+
+  header h1::after {
+    font-size: 1.2rem;
   }
 
   .post-header h1 {
@@ -415,5 +516,8 @@ mark {
     flex-direction: column;
     gap: 0.5rem;
   }
-}
 
+  .post-item {
+    padding: 1rem;
+  }
+}
